@@ -1,0 +1,43 @@
+class Node:
+  def __init__(self,data):
+    self.data=data
+    self.next=None
+class Posttopre(Node):
+  def __init__(self):
+    self.begin=None
+    
+  def push(self,data):
+    newNode=Node(data)
+    if self.begin is None:
+      self.begin=newNode
+    else:
+      newNode.next=self.begin
+      self.begin=newNode
+      
+  def pop(self):
+    if self.begin:
+      temp=self.begin.data
+      self.begin=self.begin.next
+      return temp
+    else:
+      print("stack is empty")
+      return -1
+      
+  def expval(self,string):
+    for char in string:
+      if char in '+-*/%':
+        val1=self.pop()
+        val2=self.pop()
+        if val1 !=-1 and val2 !=-1:
+          self.push(str(char+val2+val1))
+        else:
+          return
+      else:
+        self.push(char)
+  def display(self):
+    print(self.begin.data)
+    
+ob=Posttopre()
+str_input=input().split(" ")
+ob.expval(str_input)
+ob.display()
